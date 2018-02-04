@@ -21,6 +21,7 @@ def load_data():
             'hpg_reserve': pd.read_csv('data/hpg_reserve.csv'),
             'hpg_store_info': pd.read_csv('data/hpg_store_info.csv'),
             'store_id_relation': pd.read_csv('data/store_id_relation.csv'),
+            'test': pd.read_csv('data/sample_submission.csv'),
             }
 
     return data
