@@ -31,3 +31,11 @@ def prepare_data(data):
     #Join select restaurants from hpg system that are in air system.
     data['hpg_reserve'] = pd.merge(data['hpg_reserve'], data['store_id_relation'],
                                     how='inner', on=['hpg_store_id'])
+
+    #Change dates to datetime dtype + round it to date only.
+    for df in ['hpg_reserve', 'air_reserve']:
+        data[df]['visit_datetime'] = pd.to_datetime(data[df]['visit_datetime'])
+        data[df]['visit_datetime'] = data[df]['visit_datetime'].dt.date
+        data[df]['reserve_datetime'] = pd.to_datetime(data[df]['reserve_datetime'])
+        data[df]['reserve_datetime'] = data[df]['reserve_datetime'].dt.date
+        
