@@ -25,3 +25,9 @@ def load_data():
             }
 
     return data
+
+def prepare_data(data):
+
+    #Join select restaurants from hpg system that are in air system.
+    data['hpg_reserve'] = pd.merge(data['hpg_reserve'], data['store_id_relation'],
+                                    how='inner', on=['hpg_store_id'])
