@@ -45,3 +45,12 @@ def add_reserve_date_diff(data):
     for df in ['hpg_reserve', 'air_reserve']:
         data[df]['reserve_datetime_diff'] = data[df].apply(
             lambda r: (r['visit_datetime'] - r['reserve_datetime']).days,axis=1)
+
+def group_reservation_data(data):
+    """ Group by store ID and visit date"""
+
+    #Sum reserve_datetime_diff - I don't really agree with it...
+    for df in ['hpg_reserve', 'air_reserve']:
+        data[df] = data[df].groupby(['air_store_id', 'visit_datetime'],
+                    as_index=False)[['reserve_datetime_diff', 'reserve_visitors']].sum().rename(columns=
+                    {'visit_datetime':'visit_date'})
