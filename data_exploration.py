@@ -38,4 +38,10 @@ def prepare_data(data):
         data[df]['visit_datetime'] = data[df]['visit_datetime'].dt.date
         data[df]['reserve_datetime'] = pd.to_datetime(data[df]['reserve_datetime'])
         data[df]['reserve_datetime'] = data[df]['reserve_datetime'].dt.date
-        
+
+def add_reserve_date_diff(data):
+    #Create new feature for time difference between reservation
+    # and actual visit
+    for df in ['hpg_reserve', 'air_reserve']:
+        data[df]['reserve_datetime_diff'] = data[df].apply(
+            lambda r: (r['visit_datetime'] - r['reserve_datetime']).days,axis=1)
