@@ -56,6 +56,8 @@ def group_reservation_data(data):
                     {'visit_datetime':'visit_date'})
 
 def handle_dates(data, df):
+    """ Add separate date columns """
+
     data[df]['visit_date'] = pd.to_datetime(data[df]['visit_date'])
     data[df]['dow'] = data[df]['visit_date'].dt.dayofweek
     data[df]['year'] = data[df]['visit_date'].dt.year
@@ -66,13 +68,9 @@ def handle_dates(data, df):
 
 def prepare_visit_data(data):
     """ Change datetime type and add new features """
+
     df = 'air_visit_data'
     data = handle_dates(data, df)
-#    data[df]['visit_date'] = pd.to_datetime(data[df]['visit_date'])
-#    data[df]['dow'] = data[df]['visit_date'].dt.dayofweek
-#    data[df]['year'] = data[df]['visit_date'].dt.year
-#    data[df]['month'] = data[df]['visit_date'].dt.month
-#    data[df]['visit_date'] = data[df]['visit_date'].dt.date
 
 def prepare_test_data(data):
     """ Make the same changes to submission test data. """
