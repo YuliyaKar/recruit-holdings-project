@@ -2,9 +2,9 @@
   Recruit Holdings Kaggle Competition.
 
   Inspired by the following Kaggle kernels:
-    -
-    -
-    -
+    - the1owl https://www.kaggle.com/the1owl/surprise-me
+    - festa78 https://www.kaggle.com/festa78/simple-xgboost-lb-0-495
+    - DSEverything https://www.kaggle.com/dongxu027/mean-mix-math-geo-harmonic-lb-0-493
 
   author: YuliyaK
   date: 2/2/2018
