@@ -55,11 +55,30 @@ def group_reservation_data(data):
                     as_index=False)[['reserve_datetime_diff', 'reserve_visitors']].sum().rename(columns=
                     {'visit_datetime':'visit_date'})
 
-def prepare_visit_data(data):
-    """ Change datetime type and add new features """
-    df = 'air_visit_data'
+def handle_dates(data, df):
     data[df]['visit_date'] = pd.to_datetime(data[df]['visit_date'])
     data[df]['dow'] = data[df]['visit_date'].dt.dayofweek
     data[df]['year'] = data[df]['visit_date'].dt.year
     data[df]['month'] = data[df]['visit_date'].dt.month
     data[df]['visit_date'] = data[df]['visit_date'].dt.date
+
+    return data
+
+def prepare_visit_data(data):
+    """ Change datetime type and add new features """
+    df = 'air_visit_data'
+    data = handle_dates(data, df)
+#    data[df]['visit_date'] = pd.to_datetime(data[df]['visit_date'])
+#    data[df]['dow'] = data[df]['visit_date'].dt.dayofweek
+#    data[df]['year'] = data[df]['visit_date'].dt.year
+#    data[df]['month'] = data[df]['visit_date'].dt.month
+#    data[df]['visit_date'] = data[df]['visit_date'].dt.date
+
+def prepare_test_data(data):
+    """ Make the same changes to submission test data. """
+    df = 'test'
+
+    # Split id to air_store_id and visit_time
+    data[df]['visit_date'] = data[df]['id'].map(lambda x: str(x).split('_')[2])
+    data[df]['air_store_id'] = data[df]['id'].map(lambda x: '_'.join(str(x).split('_')[:2]))
+    data = handle_dates(data, 'test')
