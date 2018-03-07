@@ -11,6 +11,7 @@
 """
 
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 
 def load_data():
@@ -79,4 +80,17 @@ def prepare_test_data(data):
     # Split id to air_store_id and visit_time
     data[df]['visit_date'] = data[df]['id'].map(lambda x: str(x).split('_')[2])
     data[df]['air_store_id'] = data[df]['id'].map(lambda x: '_'.join(str(x).split('_')[:2]))
+
     data = handle_dates(data, 'test')
+
+def create_stores_df(data):
+    """ Create a DataFrame containing 2 columns: 1 column fot store IDs from
+        test data, and 1 column encoding day of week (from 0 to 6). Each unique
+        store ID has 7 entry rows corresponsing to 7 days of week.
+    """
+    unique_stores = data['test']['air_store_id'].unique()
+    stores = pd.concat([pd.DataFrame({'air_store_id': unique_stores, 'dow':
+                        [i]*len(unique_stores)}) for i in range(7)], axis=0,
+                        ignore_index=True).reset_index(drop=True)
+
+    return stores
